@@ -1,0 +1,39 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("READ_DATABASE_URL")
+}
+
+model ProductSalesView {
+  productId           Int    @id
+  totalQuantitySold   Int    @default(0)
+  totalRevenue        Float  @default(0)
+  orderCount          Int    @default(0)
+}
+
+model CategoryMetricsView {
+  categoryName String @id
+  totalRevenue Float  @default(0)
+  totalOrders  Int    @default(0)
+}
+
+model CustomerLtvView {
+  customerId     Int      @id
+  totalSpent     Float    @default(0)
+  orderCount     Int      @default(0)
+  lastOrderDate  DateTime
+}
+
+model HourlySalesView {
+  hourTimestamp DateTime @id
+  totalOrders   Int      @default(0)
+  totalRevenue  Float    @default(0)
+}
+
+model ProcessedEvent {
+  eventId     String   @id
+  processedAt DateTime @default(now())
+}
